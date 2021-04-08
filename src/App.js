@@ -1,23 +1,85 @@
 import logo from './logo.svg';
 import './App.css';
+import Input from './Components/Input';
+import React, { useEffect, useState } from 'react';
+import Todos from './Components/Todos';
+
+export const UserContext = React.createContext()
 
 function App() {
+
+  const [input, setInput] = useState('')
+  const [todos, setTodos] = useState([])
+  const [newTodos, setNewTodos] = useState([])
+  const [status, setStatus] = useState('all')
+
+  useEffect(() => {
+    // getLocal()
+    if(localStorage.getItem('todos') === '[]') {
+      localStorage.setItem('todos', JSON.stringify([]))
+    }
+    else {
+      let dummy = JSON.parse(localStorage.getItem('todos'))
+      setTodos(dummy)
+      console.log("running")
+    }
+  }, [])
+
+  useEffect(() => {
+    handleFilters()
+    // saveLocal()
+    localStorage.setItem('todos', JSON.stringify(todos))
+  }, [todos, status])
+
+  // const saveLocal = () => {
+  //   localStorage.setItem('todos', JSON.stringify(todos))
+  // }
+
+  // const getLocal = () => {
+  //   if(localStorage.getItem('todos') == null) {
+  //     localStorage.setItem('todos', JSON.stringify([]))
+  //   }
+  //   else 
+  //   {
+  //     let dummy = JSON.parse(localStorage.getItem('todos'))
+  //     setTodos(dummy)
+  //   }
+  // }
+
+  const handleFilters = () => {
+    switch(status) {
+      case 'all':
+        setNewTodos(todos)
+        break
+      case 'completed':
+        setNewTodos(todos.filter((todo) => todo.complete))
+        break
+      case 'uncompleted':
+        setNewTodos(todos.filter((todo) => !todo.complete))
+        break
+      default:
+        setNewTodos(todos)
+        break
+    }
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Raj's List</h1>
+      <UserContext.Provider 
+      value={{
+        input: input,
+        setInput: setInput,
+        todos: todos,
+        setTodos: setTodos,
+        newTodos: newTodos,
+        setNewTodos: setNewTodos,
+        status: status,
+        setStatus: setStatus
+      }}>
+        <Input />
+        <Todos />
+      </UserContext.Provider>
     </div>
   );
 }
