@@ -9,7 +9,7 @@ function Todos() {
   return (
     <ul className="Todos">
       {
-        state.newTodos === null ? console.log("hbs") : 
+        // state.newTodos === null ? console.log("hbs") : 
         state.newTodos.map((todo) => {
           return <Todo todo={todo} key={todo.id} />
         })

@@ -14,7 +14,7 @@ function App() {
   const [status, setStatus] = useState('all')
 
   useEffect(() => {
-    if(localStorage.getItem('todos') === '[]') {
+    if(localStorage.getItem('todos') === null) {
       localStorage.setItem('todos', JSON.stringify([]))
     }
     else {
