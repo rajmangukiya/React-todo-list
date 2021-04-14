@@ -1,6 +1,6 @@
 {
   "name": "todo-list",
-  "homepage": "http://rajmangukiya.github.io/e-commerce-react-js",
+  "homepage": "http://rajmangukiya.github.io/React-todo-list",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -12,6 +12,7 @@
     "react-scripts": "4.0.3",
     "web-vitals": "^1.1.1"
   },
+  
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
