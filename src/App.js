@@ -21,7 +21,6 @@ function App() {
     else {
       let dummy = JSON.parse(localStorage.getItem('todos'))
       setTodos(dummy)
-      console.log("running")
     }
     axios.get('http://localhost:5000')
       .then(data => console.log(data))
