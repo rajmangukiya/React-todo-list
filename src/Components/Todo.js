@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React, { useContext } from 'react'
 import { UserContext } from '../App'
 
@@ -6,24 +7,25 @@ function Todo(props) {
   const state = useContext(UserContext)
 
   const handleDeleteButton = () => {
-    console.log("delete")
-    state.setTodos(state.todos.filter((todo) => {
-      return todo.id !== props.todo.id
-    }))
+    axios.delete(`http://localhost:5000/${props.todo._id}`)
+    .then(res => {
+      axios.get('http://localhost:5000')
+      .then(res => {
+        state.setTodos(res.data)
+      })
+    })
   }
 
   const handleDoneButton = () => {
-    state.setTodos(state.todos.map((todo) => {
-      if(todo.id == props.todo.id) {
-        return {
-          ...todo,
-          complete: !todo.complete
-        }
-      }
-      return {
-        ...todo
-      }
-    }))
+    axios.patch(`http://localhost:5000/${props.todo._id}`,{
+      complete: !props.todo.complete
+    })
+    .then(res => {
+      axios.get('http://localhost:5000')
+      .then(res => {
+        state.setTodos(res.data)
+      })
+    })
   }
 
   return (

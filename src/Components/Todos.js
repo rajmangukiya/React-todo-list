@@ -11,7 +11,7 @@ function Todos() {
       {
         // state.newTodos === null ? console.log("hbs") : 
         state.newTodos.map((todo) => {
-          return <Todo todo={todo} key={todo.id} />
+          return <Todo todo={todo} key={todo._id} />
         })
       }
     </ul>

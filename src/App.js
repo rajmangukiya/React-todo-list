@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import Input from './Components/Input';
 import React, { useEffect, useState } from 'react';
@@ -14,16 +13,11 @@ function App() {
   const [newTodos, setNewTodos] = useState([])
   const [status, setStatus] = useState('all')
 
-  useEffect(() => {
-    if(localStorage.getItem('todos') === null) {
-      localStorage.setItem('todos', JSON.stringify([]))
-    }
-    else {
-      let dummy = JSON.parse(localStorage.getItem('todos'))
-      setTodos(dummy)
-    }
+  useEffect(() => { 
     axios.get('http://localhost:5000')
-      .then(data => console.log(data))
+      .then(res => {
+      setTodos(res.data)
+    })
   }, [])
 
   useEffect(() => {
