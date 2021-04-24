@@ -13,6 +13,7 @@ function InputButton() {
       complete: false,
       name: state.input
     }])
+    
     state.setInput("")
     setId(Math.random())
   }

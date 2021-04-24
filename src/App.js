@@ -3,6 +3,7 @@ import './App.css';
 import Input from './Components/Input';
 import React, { useEffect, useState } from 'react';
 import Todos from './Components/Todos';
+import axios from 'axios';
 
 export const UserContext = React.createContext()
 
@@ -22,6 +23,8 @@ function App() {
       setTodos(dummy)
       console.log("running")
     }
+    axios.get('http://localhost:5000')
+      .then(data => console.log(data))
   }, [])
 
   useEffect(() => {
